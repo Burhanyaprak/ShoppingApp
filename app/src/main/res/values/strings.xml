@@ -6,4 +6,7 @@
     <string name="search">Search</string>
     <string name="profile">Profile</string>
     <string name="skip">Skip</string>
+    <string name="finish">Finish</string>
+    <string name="next">Next</string>
+    <string name="prev">prev</string>
 </resources>

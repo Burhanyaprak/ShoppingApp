@@ -52,6 +52,9 @@ class ViewPagerFragment : Fragment() {
                 } else {
                     binding.prevBoarding.visibility = View.INVISIBLE
                 }
+                if(position == viewPagerAdapter.itemCount){
+                    binding.skipOnBoarding.text = getString(R.string.finish)
+                }
             }
         })
     }
