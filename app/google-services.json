@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "369374490916",
+    "project_id": "shoppingapp-faab9",
+    "storage_bucket": "shoppingapp-faab9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:369374490916:android:496de1cac1f9104422c3b1",
+        "android_client_info": {
+          "package_name": "com.burhanyaprak.shoppingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "369374490916-990is5ngels5j3iu7ijmbdhfhfk0qkfp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQuwAcJoqnNxdYUJ7CXReyEk71Y-wEZh0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "369374490916-990is5ngels5j3iu7ijmbdhfhfk0qkfp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

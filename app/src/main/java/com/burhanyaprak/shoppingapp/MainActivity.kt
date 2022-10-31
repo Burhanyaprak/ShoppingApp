@@ -21,10 +21,11 @@ class MainActivity : AppCompatActivity() {
         bottomNavigationView = binding.bottomNavigationView
         initNavigation()
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.viewPagerFragment) {
-                bottomNavigationView.visibility = View.GONE
-            } else {
-                bottomNavigationView.visibility = View.VISIBLE
+            when (destination.id) {
+                R.id.onBoardingFragment -> bottomNavigationView.visibility = View.GONE
+                R.id.splashFragment -> bottomNavigationView.visibility = View.GONE
+                R.id.viewPagerFragment -> bottomNavigationView.visibility = View.GONE
+                else -> bottomNavigationView.visibility = View.VISIBLE
             }
         }
     }
