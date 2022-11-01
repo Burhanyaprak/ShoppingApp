@@ -58,7 +58,7 @@ class LoginFragment : Fragment() {
                             getString(R.string.login_successful),
                             Toast.LENGTH_SHORT
                         ).show()
-                        findNavController().navigate(R.id.action_loginFragment_to_productFragment)
+                        findNavController().navigate(R.id.action_viewPagerFragment_to_productFragment)
                     }.addOnFailureListener {
                         Toast.makeText(
                             requireContext(),
