@@ -14,3 +14,9 @@ data class ProductsStateLocal(
     val isLoading: Boolean = false,
     val error: String? = null
 )
+
+data class CategoriesState(
+    val products: List<String> = emptyList(),
+    val isLoading: Boolean = false,
+    val error: String? = null
+)

@@ -35,4 +35,5 @@
     <string name="log_out_successfully">You log out successfully</string>
     <string name="ask_log_out">Do you want to log out?</string>
     <string name="_0_0">0.0</string>
+    <string name="done">Done</string>
 </resources>

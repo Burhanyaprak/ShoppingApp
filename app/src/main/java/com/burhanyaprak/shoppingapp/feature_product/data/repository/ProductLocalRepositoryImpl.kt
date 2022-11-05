@@ -15,7 +15,6 @@ class ProductLocalRepositoryImpl constructor(private val productDao: ProductDao)
         emit(DataState.Loading())
         try {
             val response = productDao.getCartProducts()
-            //emit(DataState.Success(response.map { it }))
             emit(DataState.Success(response))
         } catch (e: IOException) {
             emit(DataState.Error(message = "Connection problem"))

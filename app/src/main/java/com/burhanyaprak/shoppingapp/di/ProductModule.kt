@@ -12,6 +12,8 @@ import com.burhanyaprak.shoppingapp.feature_product.data.repository.ProductRepos
 import com.burhanyaprak.shoppingapp.feature_product.domain.use_case.GetProductLocalUseCase
 import com.burhanyaprak.shoppingapp.feature_product.domain.use_case.GetProductsUseCase
 import com.burhanyaprak.shoppingapp.core.util.Constants
+import com.burhanyaprak.shoppingapp.feature_search.data.repository.CategoryRepositoryImpl
+import com.burhanyaprak.shoppingapp.feature_search.domain.repository.CategoryRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -82,5 +84,14 @@ object ProductModule {
             RoomDatabase::class.java,
             "product_database"
         ).build()
+    }
+
+    @Provides
+    fun provideCategoryRepository(
+        productsApiService: ProductApiService
+    ): CategoryRepository {
+        return CategoryRepositoryImpl(
+            productsApiService
+        )
     }
 }

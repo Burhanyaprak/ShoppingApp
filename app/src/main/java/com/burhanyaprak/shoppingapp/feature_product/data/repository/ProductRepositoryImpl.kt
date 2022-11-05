@@ -15,7 +15,6 @@ class ProductRepositoryImpl constructor(private val productApiService: ProductAp
         emit(DataState.Loading())
         try {
             val response = productApiService.getProducts()
-            //emit(DataState.Success(response.map { it }))
             emit(DataState.Success(response))
         } catch (e: IOException) {
             emit(DataState.Error(message = "Connection problem"))
