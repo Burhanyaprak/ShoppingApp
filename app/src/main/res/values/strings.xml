@@ -14,7 +14,7 @@
     <string name="not_yet_registered_sign_up">Not yet registered? Sign Up</string>
     <string name="sign_up">Sign Up</string>
     <string name="already_an_user_login">Already an user? Login</string>
-    <string name="sign_up_Successful">SignUp Successful</string>
+    <string name="sign_up_successful">SignUp Successful</string>
     <string name="sign_up_failed">SignUp Failed</string>
     <string name="password_cannot_be_empty">"Password cannot be empty"</string>
     <string name="email_cannot_be_empty">"Email cannot be empty"</string>
@@ -25,4 +25,14 @@
     <string name="username">Username</string>
     <string name="repeat_password">Repeat password</string>
     <string name="sign_out">Sign Out</string>
+    <string name="add_to_basket">Add To Basket</string>
+    <string name="_1_pics">1 pics</string>
+    <string name="purchase_total">Purchase Total</string>
+    <string name="alert_dialog_positive_button">Yes</string>
+    <string name="alert_dialog_negative_button">No</string>
+    <string name="alert_dialog_message">Do you want to purchase your basket?</string>
+    <string name="purchase_successful">You purchased successfully</string>
+    <string name="log_out_successfully">You log out successfully</string>
+    <string name="ask_log_out">Do you want to log out?</string>
+    <string name="_0_0">0.0</string>
 </resources>
