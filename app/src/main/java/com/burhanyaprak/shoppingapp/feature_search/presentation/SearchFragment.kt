@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
@@ -56,10 +57,25 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerViews()
-        binding.buttonSearch.setOnClickListener {
-            listSearchedProducts(binding.editTextSearchedWord.text.toString().lowercase())
-        }
         getCategories()
+        listSearchedProducts()
+        binding.searchViewProduct.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                if (query?.length!! > 2) {
+                    listSearchedProducts(query)
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                if (newText?.length!! > 2) {
+                    listSearchedProducts(newText)
+                } else {
+                    listSearchedProducts()
+                }
+                return false
+            }
+        })
     }
 
     private fun getCategories() {
@@ -81,7 +97,7 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun listSearchedProducts(title: String) {
+    private fun listSearchedProducts(title: String = "") {
         lifecycleScope.launch {
             viewModelProduct.getProducts()
             viewModelProduct.productsState.collectLatest { it ->
@@ -105,7 +121,6 @@ class SearchFragment : Fragment() {
             }
         }
     }
-
 
     private fun getProductOfCategory(category: String) {
         lifecycleScope.launch {
