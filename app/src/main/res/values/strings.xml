@@ -38,4 +38,7 @@
     <string name="done">Done</string>
     <string name="search_product">Search Product</string>
     <string name="added_to_basket_successful">Added to basket successfully</string>
+    <string name="trying_request">Trying…</string>
+    <string name="do_you_want_to_try_again">Do you want to try again?</string>
+    <string name="okey">Okey</string>
 </resources>

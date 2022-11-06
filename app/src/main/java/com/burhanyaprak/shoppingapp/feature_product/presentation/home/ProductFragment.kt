@@ -1,5 +1,6 @@
 package com.burhanyaprak.shoppingapp.feature_product.presentation.home
 
+import android.app.AlertDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,10 +14,11 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.burhanyaprak.shoppingapp.R
+import com.burhanyaprak.shoppingapp.core.util.LoadingProgressBar
+import com.burhanyaprak.shoppingapp.databinding.FragmentProductBinding
 import com.burhanyaprak.shoppingapp.feature_product.domain.model.Product
 import com.burhanyaprak.shoppingapp.feature_product.domain.model.ProductLocal
 import com.burhanyaprak.shoppingapp.feature_product.presentation.details.ProductLocalViewModel
-import com.burhanyaprak.shoppingapp.databinding.FragmentProductBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -28,6 +30,7 @@ class ProductFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModelProduct by viewModels<ProductViewModel>()
     private val viewModelProductLocal by viewModels<ProductLocalViewModel>()
+    lateinit var loadingProgressBar: LoadingProgressBar
     private val spanCount = 2
     private val productAdapter by lazy {
         ProductAdapter().apply {
@@ -46,6 +49,7 @@ class ProductFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        loadingProgressBar = LoadingProgressBar(requireContext())
         initRecyclerView()
         listAllProducts()
         getBasketProducts()
@@ -66,14 +70,16 @@ class ProductFragment : Fragment() {
             viewModelProductLocal.getProducts()
             viewModelProductLocal.productsState.collectLatest { it ->
                 if (it.error != null) {
+                    loadingProgressBar.hide()
                     Toast.makeText(
                         requireContext(),
                         it.error,
                         Toast.LENGTH_SHORT
                     ).show()
                 } else if (it.isLoading) {
-                    //TODO(Loading animation)
+                    loadingProgressBar.show()
                 } else {
+                    loadingProgressBar.hide()
                     setBasketTotalPrice(it.products)
                 }
             }
@@ -85,19 +91,21 @@ class ProductFragment : Fragment() {
             viewModelProduct.getProducts()
             viewModelProduct.productsState.collectLatest { it ->
                 if (it.error != null) {
-                    Toast.makeText(
-                        requireContext(),
-                        it.error,
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    askTryAgainRequest(it.error)
                 } else if (it.isLoading) {
-                    //TODO(Loading animation)
+                    loadingProgressBar.show()
                 } else {
                     productAdapter.submitList(it.products)
-
                 }
             }
         }
+    }
+
+    private fun askTryAgainRequest(errorMessage: String) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton(requireContext().getString(R.string.okey)) { _, _ -> }
+        builder.setMessage(errorMessage)
+        builder.create().show()
     }
 
     override fun onResume() {

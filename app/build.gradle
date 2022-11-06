@@ -75,6 +75,9 @@ dependencies {
     kapt 'androidx.room:room-compiler:2.4.3'
     annotationProcessor 'androidx.room:room-compiler:2.4.3'
     androidTestImplementation 'androidx.room:room-testing:2.4.3'
+
+    //Lottie
+    implementation 'com.airbnb.android:lottie:4.2.2'
 }
 // Allow references to generated code
 kapt {
