@@ -70,8 +70,8 @@ class OnBoardingFragment : Fragment() {
                 } else {
                     binding.prevBoarding.visibility = View.INVISIBLE
                 }
-                if (position == viewPagerAdapter.itemCount) {
-                    binding.skipOnBoarding.text = getString(R.string.finish)
+                if (position + 1 == viewPagerAdapter.itemCount) {
+                    binding.nextOnBoarding.text = getString(R.string.finish)
                 }
             }
         })
