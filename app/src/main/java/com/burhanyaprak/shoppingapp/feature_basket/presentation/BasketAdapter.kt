@@ -2,6 +2,7 @@ package com.burhanyaprak.shoppingapp.feature_basket.presentation
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
@@ -11,7 +12,10 @@ import com.bumptech.glide.Glide
 import com.burhanyaprak.shoppingapp.databinding.LayoutBasketItemViewBinding
 import com.burhanyaprak.shoppingapp.feature_product.domain.model.ProductLocal
 
-class BasketAdapter :
+class BasketAdapter(
+    var increaseItemClickListener: ((ProductLocal) -> Unit)? = null,
+    var decreaseItemClickListener: ((ProductLocal) -> Unit)? = null
+) :
     ListAdapter<ProductLocal, BasketAdapter.BasketViewHolder>(
         BasketDiffUtil()
     ) {
@@ -20,7 +24,7 @@ class BasketAdapter :
         val binding =
             LayoutBasketItemViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
 
-        return BasketViewHolder(binding)
+        return BasketViewHolder(binding, increaseItemClickListener, decreaseItemClickListener)
     }
 
     override fun onBindViewHolder(holder: BasketViewHolder, position: Int) {
@@ -28,13 +32,17 @@ class BasketAdapter :
     }
 
     class BasketViewHolder(
-        binding: LayoutBasketItemViewBinding
+        binding: LayoutBasketItemViewBinding,
+        private val increaseClickedItem: ((ProductLocal) -> Unit)?,
+        private val decreaseClickedItem: ((ProductLocal) -> Unit)?
     ) :
         RecyclerView.ViewHolder(binding.root) {
         private val textViewProductName: TextView = binding.textViewProductName
         private val textViewProductPrice: TextView = binding.textViewProductPrice
         private val imageViewProductImage: ImageView = binding.imageViewProductImage
         private val textViewProductQuantity: TextView = binding.textViewProductQuantity
+        private val buttonIncrease: ImageButton = binding.buttonIncreaseQuantity
+        private val buttonDecrease: ImageButton = binding.buttonDecreaseQuantity
         fun bind(product: ProductLocal) {
             textViewProductName.text = product.title
             textViewProductPrice.text = product.price.toString()
@@ -42,6 +50,15 @@ class BasketAdapter :
             Glide.with(itemView.context)
                 .load(product.image)
                 .into(imageViewProductImage)
+
+            buttonIncrease.setOnClickListener {
+                increaseClickedItem?.invoke(product)
+                textViewProductQuantity.text = product.quantity.toString()
+            }
+            buttonDecrease.setOnClickListener {
+                decreaseClickedItem?.invoke(product)
+                textViewProductQuantity.text = product.quantity.toString()
+            }
         }
     }
 

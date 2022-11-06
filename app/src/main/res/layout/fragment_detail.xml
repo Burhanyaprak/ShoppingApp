@@ -102,7 +102,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
-            android:src="@drawable/ic_increase_24"
+            android:background="@drawable/ic_increase_24"
             app:layout_constraintEnd_toStartOf="@+id/imageButtonDecreaseQuantity"
             app:layout_constraintTop_toTopOf="@+id/buttonAddToBasket" />
 
@@ -111,7 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
-            android:src="@drawable/ic_decrease_24"
+            android:background="@drawable/ic_decrease_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/buttonAddToBasket" />
     </androidx.constraintlayout.widget.ConstraintLayout>

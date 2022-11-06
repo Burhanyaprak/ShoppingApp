@@ -5,16 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.burhanyaprak.shoppingapp.R
+import com.burhanyaprak.shoppingapp.core.util.cycleTextViewExpansion
 import com.burhanyaprak.shoppingapp.databinding.FragmentDetailBinding
 import com.burhanyaprak.shoppingapp.feature_product.domain.model.ProductLocal
-import com.burhanyaprak.shoppingapp.core.util.cycleTextViewExpansion
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -38,18 +40,16 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.textViewProductName.text = args.product.title
         binding.textViewProductPrice.text = args.product.price.toString()
-
         binding.textViewProductDescription.text = args.product.description
-        binding.textViewProductDescription.setOnClickListener {
-            binding.textViewProductDescription.cycleTextViewExpansion(binding.textViewProductDescription)
-        }
-
-
-        //TODO(Create a extention func for glide)
+        //TODO(Create a extension func for glide)
         Glide.with(requireContext())
             .load(args.product.image)
             .into(binding.imageViewProductImage)
         binding.textViewProductRating.text = args.product.rating.rate.toString()
+
+        binding.textViewProductDescription.setOnClickListener {
+            binding.textViewProductDescription.cycleTextViewExpansion(binding.textViewProductDescription)
+        }
 
         binding.buttonAddToBasket.setOnClickListener {
             val product =
@@ -58,6 +58,12 @@ class DetailFragment : Fragment() {
                 viewModel.addProduct(product)
                 setBasketTotalPrice(product)
             }
+            Toast.makeText(
+                requireContext(),
+                getString(R.string.added_to_basket_successful),
+                Toast.LENGTH_SHORT
+            ).show()
+            navigateProductPage()
         }
 
         binding.imageButtonIncreaseQuantity.setOnClickListener {
@@ -77,6 +83,10 @@ class DetailFragment : Fragment() {
         var basketTotalPrice: Double = buttonBasket.text.toString().toDouble()
         basketTotalPrice += product.price * productQuantity
         buttonBasket.text = basketTotalPrice.toFloat().toString()
+    }
+
+    private fun navigateProductPage() {
+        findNavController().navigate(R.id.action_detailFragment_to_productFragment)
     }
 
     override fun onResume() {

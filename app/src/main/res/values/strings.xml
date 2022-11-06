@@ -37,4 +37,5 @@
     <string name="_0_0">0.0</string>
     <string name="done">Done</string>
     <string name="search_product">Search Product</string>
+    <string name="added_to_basket_successful">Added to basket successfully</string>
 </resources>

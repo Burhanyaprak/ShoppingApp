@@ -26,8 +26,28 @@ class BasketFragment : Fragment() {
     private var _binding: FragmentBasketBinding? = null
     private val binding get() = _binding!!
     private val productLocalAdapter by lazy {
-        BasketAdapter()
+        BasketAdapter().apply {
+            increaseItemClickListener = { product ->
+                product.quantity = product.quantity.plus(1)
+                updateQuantity(product, product.quantity)
+            }
+            decreaseItemClickListener = { product ->
+                if(product.quantity > 1 ){
+                    product.quantity = product.quantity.minus(1)
+                    updateQuantity(product, product.quantity)
+                }
+            }
+        }
     }
+
+    private fun updateQuantity(product: ProductLocal, quantity: Int) {
+        val productLocal = product.copy(quantity =  quantity)
+        lifecycleScope.launch {
+            viewModel.addProduct(productLocal)
+        }
+        listAllProducts()
+    }
+
     private val viewModel by viewModels<ProductLocalViewModel>()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -114,7 +134,5 @@ class BasketFragment : Fragment() {
         super.onResume()
         val toolbar = requireActivity().findViewById<View>(R.id.my_toolbar) as Toolbar
         toolbar.visibility = View.INVISIBLE
-
-
     }
 }
